@@ -5,9 +5,15 @@ const MenuView = function(element) {
 }
 
 MenuView.prototype.bindEvents = function () {
+
   PubSub.subscribe("MenuView:AddInstrumentFamilies", (event) => {
     const instrumentFamilyArray = event.detail;
     this.fillMenu(instrumentFamilyArray);
+  })
+
+  this.element.addEventListener('change', (event) => {
+    const optionChosen = event.target.value;
+    PubSub.publish("InstrumentFamilies:NewMenuOptionChosen", optionChosen);
   })
 };
 

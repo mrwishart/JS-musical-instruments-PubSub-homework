@@ -32,6 +32,11 @@ const InstrumentFamilies = function() {
 
 InstrumentFamilies.prototype.bindEvents = function () {
   PubSub.publish("MenuView:AddInstrumentFamilies", this.instrumentFamilies);
+
+  PubSub.subscribe("InstrumentFamilies:NewMenuOptionChosen", (event) => {
+    const index = event.detail;
+    PubSub.publish("InfoView:InstrumentFamilyFound", this.instrumentFamilies[index]);
+  })
 };
 
 module.exports = InstrumentFamilies;
