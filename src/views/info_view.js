@@ -12,7 +12,7 @@ InfoView.prototype.bindEvents = function () {
 };
 
 InfoView.prototype.renderDisplay = function (instrumentFamily) {
-  
+
   this.container.innerHTML = '';
 
   const heading = document.createElement('h2');
@@ -21,8 +21,28 @@ InfoView.prototype.renderDisplay = function (instrumentFamily) {
   const bodyText = document.createElement('p');
   bodyText.textContent = instrumentFamily.description;
 
+  const instrumentsLabel = document.createElement('h3');
+  instrumentsLabel.textContent = "Instruments include:";
+
+  const instrumentsArray = instrumentFamily.instruments;
+  const instrumentsList = this.createInstrumentList(instrumentsArray);
+
   this.container.appendChild(heading);
   this.container.appendChild(bodyText);
+  this.container.appendChild(instrumentsLabel);
+  this.container.appendChild(instrumentsList);
 }
+
+InfoView.prototype.createInstrumentList = function (instrumentsArray) {
+  const unorderedList = document.createElement('ul');
+
+  instrumentsArray.forEach((instrument) => {
+    const listElement = document.createElement('li');
+    listElement.textContent = instrument;
+    unorderedList.appendChild(listElement);
+  })
+
+  return unorderedList;
+};
 
 module.exports = InfoView;
